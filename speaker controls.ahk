@@ -34,15 +34,23 @@ Return
 micMute()
 {
 	SoundSet, 1, MASTER, mute, 7
-	micToggleBox("Mic Muted")
-	Menu, Tray, Icon, mic-mute.png
+	SoundGet, microphone_mute, MASTER, mute, 7 
+	if microphone_mute = On
+	{
+		micToggleBox("Mic Muted")
+		Menu, Tray, Icon, mic-mute.png
+	}	
 }
 
 micOn()
 {
 	SoundSet, +1, MASTER, mute, 7 
-	micToggleBox("Mic On")
-	Menu, Tray, Icon, mic-on.png
+	SoundGet, microphone_mute, MASTER, mute, 7 
+	if microphone_mute = Off
+	{
+		micToggleBox("Mic On")
+		Menu, Tray, Icon, mic-on.png
+	}		
 }
 
 ; Display sound toggle GUI
