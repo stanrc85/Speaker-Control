@@ -33,14 +33,14 @@ Return
 
 micMute()
 {
-	Run, C:\scripts\Speaker-Control\nircmd.exe mutesysvolume 1 "Mic"
+	SoundSet, 1, MASTER, mute, 7
 	micToggleBox("Mic Muted")
 	Menu, Tray, Icon, mic-mute.png
 }
 
 micOn()
 {
-	Run, C:\scripts\Speaker-Control\nircmd.exe mutesysvolume 0 "Mic"
+	SoundSet, +1, MASTER, mute, 7 
 	micToggleBox("Mic On")
 	Menu, Tray, Icon, mic-on.png
 }
