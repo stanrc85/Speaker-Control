@@ -1,20 +1,19 @@
 ﻿#Persistent			; This keeps the script running permanently.
 #SingleInstance		; Only allows one instance of the script to run.
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-; #Warn  ; Enable warnings to assist with detecting common errors.
+
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir C:\scripts\Speaker-Control  ; Ensures a consistent starting directory.
 
 ^!;:: ; Speaker switcher
   toggleSpeaker:=!toggleSpeaker ; This toggles the variable between true/false
   if toggleSpeaker
 	{
-	Run, C:\scripts\Speaker-Control\nircmd.exe setdefaultsounddevice "Speakers"
+	Run, nircmd setdefaultsounddevice "Speakers"
 	soundToggleBox("Speakers")
 	}
 	else
 	{
-	Run, C:\scripts\Speaker-Control\nircmd.exe setdefaultsounddevice "Headphones"
+	Run, nircmd setdefaultsounddevice "Headphones"
 	soundToggleBox("Headphones")
 	}
 Return
