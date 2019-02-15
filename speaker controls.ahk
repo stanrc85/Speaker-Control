@@ -4,10 +4,23 @@
 
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 
+Loop { ;Validiates microphone status in case it is changed by another application
+	SoundGet, microphone_mute, MASTER, mute, 7 
+	if microphone_mute = Off
+	{
+		Menu, Tray, Icon, mic-on.png 
+	}	
+	else if microphone_mute = On
+	{
+		Menu, Tray, Icon, mic-mute.png
+	}	
+	Sleep, 5000	
+}
+
 ^!;:: ; Speaker switcher
   toggleSpeaker:=!toggleSpeaker ; This toggles the variable between true/false
   if toggleSpeaker
-	{
+	{ 
 	Run, nircmd setdefaultsounddevice "Speakers"
 	soundToggleBox("Speakers")
 	}
@@ -95,12 +108,8 @@ micToggleClose:
 Return
 
 ~#l:: ; Mute on screen lock
-
 SoundSet, 1,,Mute
 micMute()
-
 WinWait, A
-
 SoundSet, 0,,Mute
-
-return
+Return
