@@ -16,6 +16,7 @@ Loop { ;Validiates microphone status in case it is changed by another applicatio
 	}	
 	Sleep, 5000	
 }
+toggleMic:=false
 
 ^!;:: ; Speaker switcher
   toggleSpeaker:=!toggleSpeaker ; This toggles the variable between true/false
@@ -32,7 +33,7 @@ Loop { ;Validiates microphone status in case it is changed by another applicatio
 Return
 
 ^!':: ; Mute mic toggle
-  toggleMic:=!toggleMic ; This toggles the variable between true/false
+  ;toggleMic:=!toggleMic ; This toggles the variable between true/false
   if toggleMic
 	{
 	micMute()
@@ -47,6 +48,7 @@ micMute()
 {
 	SoundSet, 1, MASTER, mute, 7
 	SoundGet, microphone_mute, MASTER, mute, 7 
+	toggleMic:=false
 	if microphone_mute = On
 	{
 		micToggleBox("Mic Muted")
@@ -58,6 +60,7 @@ micOn()
 {
 	SoundSet, +1, MASTER, mute, 7 
 	SoundGet, microphone_mute, MASTER, mute, 7 
+	toggleMic:=true
 	if microphone_mute = Off
 	{
 		micToggleBox("Mic On")
