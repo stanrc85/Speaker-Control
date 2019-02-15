@@ -3,20 +3,21 @@
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-
+global toggleMic:=false
 Loop { ;Validiates microphone status in case it is changed by another application
 	SoundGet, microphone_mute, MASTER, mute, 7 
 	if microphone_mute = Off
 	{
-		Menu, Tray, Icon, mic-on.png 
+		Menu, Tray, Icon, mic-on.png
+		global toggleMic:=true
 	}	
 	else if microphone_mute = On
 	{
 		Menu, Tray, Icon, mic-mute.png
+		global toggleMic:=false
 	}	
 	Sleep, 5000	
 }
-toggleMic:=false
 
 ^!;:: ; Speaker switcher
   toggleSpeaker:=!toggleSpeaker ; This toggles the variable between true/false
@@ -33,12 +34,11 @@ toggleMic:=false
 Return
 
 ^!':: ; Mute mic toggle
-  ;toggleMic:=!toggleMic ; This toggles the variable between true/false
   if toggleMic
 	{
 	micMute()
 	}
-	else
+	else if !toggleMic
 	{
 	micOn()
 	}
@@ -48,9 +48,9 @@ micMute()
 {
 	SoundSet, 1, MASTER, mute, 7
 	SoundGet, microphone_mute, MASTER, mute, 7 
-	toggleMic:=false
 	if microphone_mute = On
 	{
+		global toggleMic:=false
 		micToggleBox("Mic Muted")
 		Menu, Tray, Icon, mic-mute.png
 	}	
@@ -60,9 +60,9 @@ micOn()
 {
 	SoundSet, +1, MASTER, mute, 7 
 	SoundGet, microphone_mute, MASTER, mute, 7 
-	toggleMic:=true
 	if microphone_mute = Off
 	{
+		global toggleMic:=true
 		micToggleBox("Mic On")
 		Menu, Tray, Icon, mic-on.png
 	}		
