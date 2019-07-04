@@ -4,8 +4,9 @@
 
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 global toggleMic:=false
+global mic_source:=6 ;number gathered from soundanalysis.ahk
 Loop { ;Validiates microphone status in case it is changed by another application
-	SoundGet, microphone_mute, MASTER, mute, 7 
+	SoundGet, microphone_mute, MASTER, mute, global mic_source
 	if microphone_mute = Off
 	{
 		Menu, Tray, Icon, mic-on.png
@@ -46,8 +47,8 @@ Return
 
 micMute()
 {
-	SoundSet, 1, MASTER, mute, 7
-	SoundGet, microphone_mute, MASTER, mute, 7 
+	SoundSet, 1, MASTER, mute, global mic_source
+	SoundGet, microphone_mute, MASTER, mute, global mic_source
 	if microphone_mute = On
 	{
 		global toggleMic:=false
@@ -58,8 +59,8 @@ micMute()
 
 micOn()
 {
-	SoundSet, +1, MASTER, mute, 7 
-	SoundGet, microphone_mute, MASTER, mute, 7 
+	SoundSet, +1, MASTER, mute, global mic_source
+	SoundGet, microphone_mute, MASTER, mute, global mic_source
 	if microphone_mute = Off
 	{
 		global toggleMic:=true
